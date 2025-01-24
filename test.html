@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IOOS QC</title>
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.11.1/core.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.27.1/full/pyodide.js"></script>
+</head>
+<body>
+    <div class="top-bar">
+        <h1>IOOS QC Web App</h1>
+        <p>Using pyscript to run ioos_qc on the browser</p>
+    </div>
+    <div class="display">
+        <!-- <h1>UPLOAD AND GET QC'D RESULTS</h1> -->
+        <form action="/action_page.php">
+            <!-- <label for="file_upload"></label> -->
+            <input type="file" id="myFile" name="filename" placeholder="file" title="Upload File">
+            <input type="submit">
+          </form>
+        <label">Select chart from list:</label>   
+        <select class="form-control" id="select" title="form-control">
+            <option value="gross_range_test">Gross Range Test</option>
+            <option value="flat_line_test">Flat Line Test</option>
+            <option value="rate_of_change_test">Rate of Change Test</option>
+            <option value="spike_test">Spike Test</option> 
+        </select>
+        <button type="button" class="run-button">Run Test</button>
+    </div>
+
+    <div id="plot-container"></div>
+  
+    <!-- PyScript Code -->
+<!-- <py-script>
+      import matplotlib.pyplot as plt
+      import io
+      from js import document
+      from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+  
+      # Create a plot
+      fig, ax = plt.subplots()
+      ax.plot([1, 2, 3, 4], [10, 20, 25, 30], label="Example Data")
+      ax.set_title("Simple Line Plot")
+      ax.set_xlabel("X-axis")
+      ax.set_ylabel("Y-axis")
+      ax.legend()
+  
+      # Render the plot to an image buffer
+      canvas = FigureCanvas(fig)
+      buf = io.BytesIO()
+      canvas.print_png(buf)
+      buf.seek(0)
+  
+      # Convert the buffer to a data URL
+      data_url = "data:image/png;base64," + buf.read().encode("base64").decode("utf-8")
+  
+      # Display the image in the container
+      plot_container = document.getElementById("plot-container")
+      img = document.createElement("img")
+      img.src = data_url
+      plot_container.appendChild(img)
+</py-script> -->
+<script type="py">
+    print("Hello World")
+    import matplotlib.pyplot as plt
+    import io
+    from js import document
+    from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+  
+    # Create a plot
+    fig, ax = plt.subplots()
+    ax.plot([1, 2, 3, 4], [10, 20, 25, 30], label="Example Data")
+    ax.set_title("Simple Line Plot")
+    ax.set_xlabel("X-axis")
+    ax.set_ylabel("Y-axis")
+    ax.legend()
+
+    # Render the plot to an image buffer
+    canvas = FigureCanvas(fig)
+    buf = io.BytesIO()
+    canvas.print_png(buf)
+    buf.seek(0)
+
+    # Convert the buffer to a data URL
+    data_url = "data:image/png;base64," + buf.read().encode("base64").decode("utf-8")
+
+    # Display the image in the container
+    plot_container = document.getElementById("plot-container")
+    img = document.createElement("img")
+    img.src = data_url
+    plot_container.appendChild(img)
+</script>
+</body>
+</html>
